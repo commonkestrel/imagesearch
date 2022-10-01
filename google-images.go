@@ -33,8 +33,8 @@ var ( //Define arguments
     }{CreativeCommons: "il:cl", Other: "il:ol"}
 
     Type = struct{
-        Face, Photo, Clipart, Lineart, Gif string
-    }{Face: "itp:face", Photo: "itp:photo", Clipart: "itp:clipart", Lineart: "itp:lineart", Gif: "itp:animated"}
+        Face, Photo, Clipart, Lineart, Animated string
+    }{Face: "itp:face", Photo: "itp:photo", Clipart: "itp:clipart", Lineart: "itp:lineart", Animated: "itp:animated"}
 
     Time = struct {
         PastDay, PastWeek, PastMonth, PastYear string
@@ -44,12 +44,10 @@ var ( //Define arguments
         Tall, Square, Wide, Panoramic string
     }{Tall: "iar:t", Square: "iar:s", Wide: "iar:w", Panoramic: "iar:xw"}
 
-    SearchFormat = struct{
+    Format = struct{
         Jpg, Gif, Png, Bmp, Svg, Webp, Ico, Raw string
     }{Jpg: "ift:jpg", Gif: "ift:gif", Png: "ift:png", Bmp: "ift:bmp", Svg: "ift:svg", Webp: "webp", Ico: "ift:ico", Raw: "ift:craw"}
 )
-
-var exists = errors.New("file already exists")
 
 func Images(query string, limit int, arguments ...string) ([]Image, error) {
     url := buildUrl(query, arguments)
