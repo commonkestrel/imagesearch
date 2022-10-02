@@ -1,5 +1,6 @@
 # imagesearch
 [![Go Reference](https://pkg.go.dev/badge/github.com/jibble330/imagesearch.svg)](https://pkg.go.dev/github.com/jibble330/imagesearch)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jibble330/imagesearch)](https://goreportcard.com/report/github.com/jibble330/imagesearch)
 
 A package designed to search Google Images based on the input query and arguments. These images may be protected under copyright, and you shouldn't do anything punishable with them, like using them for commercial use. 
 
