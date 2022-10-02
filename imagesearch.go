@@ -66,7 +66,7 @@ var (
 
 // Searches for the query along with the given arguments, and returns a slice of Image objects.
 // The amount of images does not exceed the limit unless the limit is 0, in which case it will return all images found.
-func Images(query string, limit int, arguments ...string) ([]Image, error) {
+func Images(query string, limit int, arguments ...string) (images []Image, err error) {
     url := buildUrl(query, arguments)
 
     page, err := getPage(url)
@@ -74,7 +74,7 @@ func Images(query string, limit int, arguments ...string) ([]Image, error) {
         return []Image{}, err
     }
 
-    images, err := unpack(page)
+    images, err = unpack(page)
     if err != nil {
         return []Image{}, err
     }
@@ -88,7 +88,7 @@ func Images(query string, limit int, arguments ...string) ([]Image, error) {
 
 // Searches for the query along with the given arguments, and returns a slice of the image urls.
 // The amount of images does not exceed the limit unless the limit is 0, in which case it will return all urls found.
-func Urls(query string, limit int, arguments ...string) ([]string, error) {
+func Urls(query string, limit int, arguments ...string) (urls []string, err error) {
     url := buildUrl(query, arguments)
 
     page, err := getPage(url)
@@ -105,7 +105,6 @@ func Urls(query string, limit int, arguments ...string) ([]string, error) {
         images = images[:limit]
     }
 
-    var urls []string
     for _, image := range images {
         urls = append(urls, image.Url)
     }
@@ -115,30 +114,29 @@ func Urls(query string, limit int, arguments ...string) ([]string, error) {
 
 // Searches for the given query along with the given argumetnts and downloads the images into the given directory.
 // The amount of images does not exceed the limit unless the limit is 0, in which case it will download all images found.
-// Returns a slice of the absolute paths of all downloaded images.
-func Download(query string, limit int, dir string, arguments ...string) ([]string, int, error) {
-    dir, err := filepath.Abs(strings.ReplaceAll(dir, "\\", "/"))
+// Returns a slice of the absolute paths of all downloaded images, along with the number of missing images.
+// The number of missing images is the difference between the limit and the actual number of images downloaded. This is only non-zero when the limit is higher than the number of downloadable images found.
+func Download(query string, limit int, dir string, arguments ...string) (paths []string, missing int, err error) {
+    dir, err = filepath.Abs(strings.ReplaceAll(dir, "\\", "/"))
     if err != nil {
         return []string{}, 0, err
     }
-    _, err = os.Stat(dir)
-    if os.IsNotExist(err) {
-        err = os.MkdirAll(dir, os.ModePerm)
-        if err != nil {
-            return []string{}, 0, err
-        }
-    }
 
-    urls, err := Urls(query, limit, arguments...)
+    urls, err := Urls(query, 0, arguments...)
     if err != nil {
         return []string{}, 0, err
     }
 
     var suffix int
-    var errs int
-    var paths []string
+    
+    var i int
+    for len(paths) < limit  {
+        if i >= len(urls) {
+            missing = limit-len(paths)
+            break
+        }
 
-    for _, url := range urls {
+        url := urls[i]
         pat := path.Join(dir, query+strconv.Itoa(suffix)) + ".*"
         matches, _ := filepath.Glob(pat)
         for len(matches) > 0 {
@@ -148,14 +146,22 @@ func Download(query string, limit int, dir string, arguments ...string) ([]strin
         }
 
         file, err := DownloadImage(url, dir, query+strconv.Itoa(suffix))
-        if err != nil {
-            errs++
+        for err != nil {
+            i++
+            if i >= len(urls) {
+                missing = limit-len(paths)
+                break
+            }
+
+            url = urls[i]
+            file, err = DownloadImage(url, dir, query+strconv.Itoa(suffix))
         }
 
         paths = append(paths, file)
+        i++
     }
 
-    return paths, errs, nil
+    return paths, missing, nil
 }
 
 // Given the url of the image, the directory to download to, and the name of the file *without extension*, this will find the type of image and download it to the given directory.
@@ -172,7 +178,19 @@ func Download(query string, limit int, dir string, arguments ...string) ([]strin
 //	    matches, _ := filepath.Glob(pat)
 //	    return len(matches) > 0
 //	}
-func DownloadImage(url, dir, name string) (string, error) {
+func DownloadImage(url, dir, name string) (imgpath string, err error) {
+    dir, err = filepath.Abs(dir)
+    if err != nil {
+        return "", err
+    }
+    _, err = os.Stat(dir)
+    if os.IsNotExist(err) {
+        err = os.MkdirAll(dir, os.ModePerm)
+        if err != nil {
+            return "", err
+        }
+    }
+
     client := http.DefaultClient
     req, _ := http.NewRequest("GET", url, nil)
     req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36")
