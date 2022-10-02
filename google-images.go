@@ -19,6 +19,10 @@ import (
     "path/filepath"
 )
 
+var (
+    errUnpack = errors.New("failed to unpack json! no image results or Google changed their structrue")   
+)
+
 //Contains information about an image including the url of the image, the url of the source, and the website it came from. Example: 
 //  Image {
 //      Url: www.example.com/static/image.png
@@ -75,7 +79,7 @@ func Images(query string, limit int, arguments ...string) ([]Image, error) {
         return []Image{}, err
     }
 
-    images, err := findImages(page)
+    images, err := unpack(page)
     if err != nil {
         return []Image{}, err
     }
@@ -98,7 +102,7 @@ func Urls(query string, limit int, arguments ...string) ([]string, error) {
         return []string{}, err
     }
 
-    images, err := findImages(page)
+    images, err := unpack(page)
     if err != nil {
         return []string{}, err
     }
@@ -200,6 +204,12 @@ func DownloadImage(url, dir, name string) (string, error) {
     return f.Name(), nil
 }
 
+//Checks if an error is an unpacking error. An unpacking error is generally thrown when Google changes their JSON structure, or on certain internet connections, when the specific header does not work.
+//If you believe Google changed their JSON structure, please submit a bug report at https://github.com/Jibble330/imagesearch/issues, and I will try to fix this asap.
+func IsUnpackErr(err error) bool {
+    return err == errUnpack
+}
+
 func buildUrl(query string, arguments []string) string {
     url := "https://www.google.com/search?tbm=isch&q=" + query
 
@@ -213,14 +223,24 @@ func buildUrl(query string, arguments []string) string {
     return url
 }
 
-func findImages(page string) ([]Image, error) {
+func unpack(page string) ([]Image, error) {
+
     scriptStart := strings.LastIndex(page, "AF_initDataCallback")
+    if scriptStart == -1 {
+        return []Image{}, errUnpack
+    }
     page = page[scriptStart:]
 
     startChar := strings.Index(page, "[")
+    if startChar == -1 {
+        return []Image{}, errUnpack
+    }
     page= page[startChar:]
 
     endChar := strings.Index(page, "</script>") - 20
+    if endChar == -1 {
+        return []Image{}, errUnpack
+    }
     page = page[:endChar]
 
     var imageJson []interface{}
