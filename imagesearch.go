@@ -21,18 +21,22 @@ var (
 // Contains information about an image including the url of the image, the url of the source, and the website it came from. Example:
 //
 //	Image {
-//	    Url: www.example.com/static/image.png
-//	    Source: www.example.com/article
-//	    Base: example.com
+//	    Url: "www.example.com/static/image.png"
+//	    Source: "www.example.com/article"
+//	    Base: "example.com"
 //	}
 type Image struct {
+    // Image URL
     Url    string `json:"url"`
+
+    // URL the image was found at
     Source string `json:"source"`
+
+    // Base of the source URL
     Base   string `json:"base"`
 }
 
-// These variables are all of the possible arguments that can be passed into Images, Download, and Urls. These are used by passing imagesearch.{Argument}.{Option} into the arguments parameter. For Example:
-//
+// These variables are all of the possible arguments that can be passed into Images, Download, and Urls. These are used by passing imagesearch.{Argument}.{Option} into the arguments parameter. For example:
 //	urls, err := imagesearch.Urls("example", 0, imagesearch.Color.Red, imagesearch.License.CreativeCommons)
 var (
     Color = struct {
@@ -115,7 +119,9 @@ func Urls(query string, limit int, arguments ...string) (urls []string, err erro
 // Searches for the given query along with the given argumetnts and downloads the images into the given directory.
 // The amount of images does not exceed the limit unless the limit is 0, in which case it will download all images found.
 // Returns a slice of the absolute paths of all downloaded images, along with the number of missing images.
-// The number of missing images is the difference between the limit and the actual number of images downloaded. This is only non-zero when the limit is higher than the number of downloadable images found.
+// 
+// The number of missing images is the difference between the limit and the actual number of images downloaded. 
+// This is only non-zero when the limit is higher than the number of downloadable images found.
 func Download(query string, limit int, dir string, arguments ...string) (paths []string, missing int, err error) {
     dir, err = filepath.Abs(strings.ReplaceAll(dir, "\\", "/"))
     if err != nil {
