@@ -204,7 +204,7 @@ func buildUrl(query string, arguments []string) string {
     url := "https://www.google.com/search?tbm=isch&q=" + query
 
     if len(arguments) > 0 {
-        url += "ic:specific"
+        url += "&ic:specific"
     }
     for _, argument := range arguments {
         url += "%2C" + argument
