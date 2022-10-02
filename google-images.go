@@ -32,8 +32,8 @@ type Image struct {
     Base      string `json:"base"`
 }
 
-//These variables are all of the possible arguments that can be passed into Images, Download, and Urls. These are used by passing gis.{Argument}.{Option} into the arguments parameter. For Example: 
-//  urls, err := gis.Urls("example", 0, gis.Color.Red, gis.License.CreativeCommons)
+//These variables are all of the possible arguments that can be passed into Images, Download, and Urls. These are used by passing imagesearch.{Argument}.{Option} into the arguments parameter. For Example: 
+//  urls, err := imagesearch.Urls("example", 0, imagesearch.Color.Red, imagesearch.License.CreativeCommons)
 var (
     Color = struct {
         Red, Orange, Yellow, Green, Teal, Blue, Purple, Pink, White, Gray, Black, Brown string

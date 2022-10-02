@@ -1,4 +1,4 @@
-# google-images (gis)
+# imagesearch)
 [![Go Reference](https://pkg.go.dev/badge/github.com/jibble330/imagesearch.svg)](https://pkg.go.dev/github.com/jibble330/imagesearch)
 
 A package designed to search Google Images based on the input query and arguments. These images may be protected under copyright, and you shouldn't do anything punishable with them, like using them for commercial use. This library is inspired by the Python library [google-images-download](https://www.github.com/hardikvasa/google-images-download) by **[hardikvasa](https://www.github.com/hardikvasa)**, but ported to **Go** and with some quality of life improvements, such as being able to retrieve urls as well. This package is essentially a port of the Python library [GoogleImageScraper](https://www.github.com/Jibble330/GoogleImageScraper) to **Go**.
@@ -15,7 +15,7 @@ There are 2 required parameters, along with a variety of different search argume
 
 ## Search Arguments
 
-These are used by passing ```gis.{argument}.{option}``` in the ```arguments``` parameter. Only one option from each argument can be passed or Google will load the images without any arguments except the query.
+These are used by passing ```imagesearch.{argument}.{option}``` in the ```arguments``` parameter. Only one option from each argument can be passed or Google will load the images without any arguments except the query.
 
 | Argument | Options | Description |
 | --- | --- | --- |
