@@ -204,7 +204,7 @@ func buildUrl(query string, arguments []string) string {
     url := "https://www.google.com/search?tbm=isch&q=" + query
 
     if len(arguments) > 0 {
-        url += "&tbm=ic:specific"
+        url += "&tbs=ic:specific"
     }
     for _, argument := range arguments {
         url += "%2C" + argument
@@ -251,7 +251,8 @@ func findImages(page string) ([]Image, error) {
 func getPage(url string) (string, error) {
     client := http.DefaultClient
     req, _ := http.NewRequest("GET", url, nil)
-    req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36")
+    //No idea why this works, but Google renders the page differently with this header. Credit to joeclinton1 on Github for this
+    req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36") 
     resp, err := client.Do(req)
     if err != nil {
         return "", err
