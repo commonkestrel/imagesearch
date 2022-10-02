@@ -1,7 +1,7 @@
 # imagesearch
 [![Go Reference](https://pkg.go.dev/badge/github.com/jibble330/imagesearch.svg)](https://pkg.go.dev/github.com/jibble330/imagesearch)
 
-A package designed to search Google Images based on the input query and arguments. These images may be protected under copyright, and you shouldn't do anything punishable with them, like using them for commercial use. This library is inspired by the Python library [google-images-download](https://www.github.com/hardikvasa/google-images-download) by **[hardikvasa](https://www.github.com/hardikvasa)**, but ported to **Go** and with some quality of life improvements, such as being able to retrieve urls as well. This package is essentially a port of the Python library [GoogleImageScraper](https://www.github.com/Jibble330/GoogleImageScraper) to **Go**.
+A package designed to search Google Images based on the input query and arguments. These images may be protected under copyright, and you shouldn't do anything punishable with them, like using them for commercial use. 
 
 ---
 # Arguments
@@ -26,3 +26,8 @@ These are used by passing ```imagesearch.{argument}.{option}``` in the ```argume
 | **Time** | PastDay, PastWeek, PastMonth, PastYear | Only finds images posted in the time specified. |
 **AspectRatio** | Tall, Square, Wide, Panoramic | Specifies the aspect ratio of the images. |
 **Format** | Jpg, Gif, Png, Bmp, Svg, Webp, Ico, Raw | Filters out images that are not a specified format. If you would like to download images as a specific format, use the download_format argument instead. |
+
+---
+
+## Credits
+This library is inspired by the Python library [google-images-download](https://www.github.com/joeclinton1/google-images-download) created by **[hardikvasa](https://www.github.com/hardikvasa)** and maintained by **[joeclinton1](https://www.github.com/joeclinton1)**, but ported to **Go** and with some quality of life improvements, such as being able to retrieve urls as well. Essentially, this package is a port of the Python library [GoogleImageScraper](https://www.github.com/Jibble330/GoogleImageScraper) to **Go**.
