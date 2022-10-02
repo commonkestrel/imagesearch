@@ -11,7 +11,7 @@ There are 2 required parameters, along with a variety of different search argume
 | Argument | Type | Description |
 | --- | --- | --- |
 | **query:** | *string* | The keyword(s) to search for. |
-| **limit** | *int* | Cannot fetch more than 100. |  
+| **limit** | *int* | The amount of images to fetch. Cannot fetch more than 100. |  
 | **arguments:** | *string* | Optional search parameters are passed through here. |
 
 ## Search Arguments
