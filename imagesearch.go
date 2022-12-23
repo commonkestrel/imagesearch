@@ -15,7 +15,7 @@ import (
 )
 
 var (
-    errUnpack = errors.New("failed to unpack json! no image results or Google changed their structrue")
+    errUnpack = errors.New("failed to unpack json! no image results or Google changed their structure")
 )
 
 // Contains information about an image including the url of the image, the url of the source, and the website it came from. Example:
