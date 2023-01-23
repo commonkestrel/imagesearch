@@ -234,7 +234,7 @@ func DownloadImage(url, dir, name string) (imgpath string, err error) {
 }
 
 // Checks if an error is an unpacking error. An unpacking error is generally thrown when Google changes their JSON structure, or on certain internet connections, when the specific header does not work.
-// If you believe Google changed their JSON structure, please submit a bug report at https://github.com/Jibble330/imagesearch/issues, and I will try to fix this asap.
+// If you believe Google changed their JSON structure, please submit a bug report at https://github.com/commonkestrel/imagesearch/issues, and I will try to fix this asap.
 func IsUnpackErr(err error) bool {
     return err == errUnpack
 }

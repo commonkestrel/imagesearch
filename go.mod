@@ -1,3 +1,3 @@
-module github.com/jibble330/imagesearch
+module github.com/commonkestrel/imagesearch
 
 go 1.19

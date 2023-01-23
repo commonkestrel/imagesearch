@@ -1,7 +1,6 @@
+<div align="center"><img src="https://raw.githubusercontent.com/commonkestrel/imagesearch/master/misc/logo.png" width=640p
 
-
-
-# imagesearch [![Go Reference](https://pkg.go.dev/badge/github.com/jibble330/imagesearch.svg)](https://pkg.go.dev/github.com/jibble330/imagesearch) [![Go Report Card](https://goreportcard.com/badge/github.com/jibble330/imagesearch)](https://goreportcard.com/report/github.com/jibble330/imagesearch) [![Release](https://img.shields.io/github/release/jibble330/imagesearch.svg?style=flat-square)](https://github.com/jibble330/imagesearch/releases)
+# imagesearch [![Go Reference](https://pkg.go.dev/badge/github.com/commonkestrel/imagesearch.svg)](https://pkg.go.dev/github.com/commonkestrel/imagesearch) [![Go Report Card](https://goreportcard.com/badge/github.com/commonkestrel/imagesearch)](https://goreportcard.com/report/github.com/commonkestrel/imagesearch) [![Release](https://img.shields.io/github/release/commonkestrel/imagesearch.svg?style=flat-square)](https://github.com/commonkestrel/imagesearch/releases)
 A package designed to search Google Images based on the input query and arguments. These images may be protected under copyright, and you shouldn't do anything punishable with them, like using them for commercial use. 
 
 ---
@@ -36,7 +35,7 @@ This showcases the different functions provided and what each input and output m
 package main
 
 import (
-    "github.com/jibble330/imagesearch"
+    "github.com/commonkestrel/imagesearch"
 )
 
 func main() {
@@ -64,4 +63,4 @@ func main() {
 ```
 
 ## Credits
-This library is inspired by the Python library [google-images-download](https://www.github.com/joeclinton1/google-images-download) created by **[hardikvasa](https://www.github.com/hardikvasa)** and maintained by **[joeclinton1](https://www.github.com/joeclinton1)**, but ported to **Go** and with some quality of life improvements, such as being able to retrieve urls as well. Essentially, this package is a port of the Python library [GoogleImageScraper](https://www.github.com/Jibble330/GoogleImageScraper) to **Go**.
+This library is inspired by the Python library [google-images-download](https://www.github.com/joeclinton1/google-images-download) created by **[hardikvasa](https://www.github.com/hardikvasa)** and maintained by **[joeclinton1](https://www.github.com/joeclinton1)**, but ported to **Go** and with some quality of life improvements, such as being able to retrieve urls as well. Essentially, this package is a port of the Python library [GoogleImageScraper](https://www.github.com/commonkestrel/GoogleImageScraper) to **Go**.
