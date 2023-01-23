@@ -1,4 +1,4 @@
-<div align="center"><img src="https://raw.githubusercontent.com/commonkestrel/imagesearch/master/misc/logo.png" width=640p
+<div align="center"><img src="https://raw.githubusercontent.com/commonkestrel/imagesearch/master/misc/logo.png" width=640p>
 
 # imagesearch [![Go Reference](https://pkg.go.dev/badge/github.com/commonkestrel/imagesearch.svg)](https://pkg.go.dev/github.com/commonkestrel/imagesearch) [![Go Report Card](https://goreportcard.com/badge/github.com/commonkestrel/imagesearch)](https://goreportcard.com/report/github.com/commonkestrel/imagesearch) [![Release](https://img.shields.io/github/release/commonkestrel/imagesearch.svg?style=flat-square)](https://github.com/commonkestrel/imagesearch/releases)
 A package designed to search Google Images based on the input query and arguments. These images may be protected under copyright, and you shouldn't do anything punishable with them, like using them for commercial use. 
